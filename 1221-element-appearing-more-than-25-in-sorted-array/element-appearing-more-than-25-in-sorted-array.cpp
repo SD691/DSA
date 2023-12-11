@@ -1,16 +1,19 @@
 class Solution {
 public:
     int findSpecialInteger(vector<int>& arr) {
+        if (arr.size() == 1) return arr[0];
         double count = arr.size()/4;
-        unordered_map<int,int> mp;
+        int count_num = 1;
 
-        for(auto it: arr){
-            mp[it]++;
-        }
-
-        for(auto it: mp){
-            if(it.second>count){
-                return it.first;
+        for(int i=1; i<arr.size(); i++){
+            if(arr[i]==arr[i-1]){
+                count_num++;
+            }
+            else{
+                count_num = 1;
+            }
+            if(count_num>count){
+                return arr[i];
                 break;
             }
         }
