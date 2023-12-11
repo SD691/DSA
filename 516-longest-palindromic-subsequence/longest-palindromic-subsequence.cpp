@@ -1,33 +1,7 @@
 class Solution {
 public:
 
-    bool ispalindrom(string &st){
-        int right = st.size()-1;
-        int left = 0;
-        while(left<right){
-            if(st[left]!=st[right]){
-                return false;
-            }
-            left++;
-            right--;
-        }
-        return true;
-    }
-    void helper(int ind, string &st, string s, int &ans){
-        if(ind==s.size()){
-            return;
-        }
-
-        st = st+s[ind];
-        if(ispalindrom(st)){
-            int size = st.size();
-            ans = max(ans,size);
-            helper(ind+1,st,s,ans);
-           
-        }
-        st.pop_back();
-        helper(ind+1,st,s,ans);
-    }
+    
     int longestPalindromeSubseq(string s) {
         string t(s.rbegin(), s.rend());
 
