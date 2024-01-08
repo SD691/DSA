@@ -14,7 +14,7 @@ public:
 
     TreeNode* constructTree(vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd, map<int,int> &mp){
         if (preStart > preEnd || inStart > inEnd) return NULL;
-TreeNode* root = new TreeNode(preorder[preStart]);
+        TreeNode* root = new TreeNode(preorder[preStart]);
 
         int elem = mp[root->val];
         int nElem = elem - inStart;
