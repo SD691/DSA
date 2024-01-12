@@ -1,18 +1,14 @@
 class Solution {
 public:
-
-    
     int longestPalindromeSubseq(string s) {
-        string t(s.rbegin(), s.rend());
-
+        string t(s.rbegin(),s.rend());
         int n = s.size();
         int m = t.size();
-        
-        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
 
-        for(int i=0; i<n; i++) {
-            dp[0][i];
-            dp[i][0];
+        vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+        for(int i=0; i<n; i++){
+            dp[i][0] = 0;
+            dp[0][i] = 0;
         }
 
         for(int i=1; i<=n; i++){
@@ -26,8 +22,5 @@ public:
             }
         }
         return dp[n][m];
-
-
-        
     }
 };
