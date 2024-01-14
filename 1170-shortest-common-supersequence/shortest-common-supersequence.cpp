@@ -8,7 +8,7 @@ public:
             dp[i][0] = 0;
         }
         for(int i=0; i<=m; i++){
-            dp[0][i] = 1;
+            dp[0][i] = 0;
         }
 
         for(int i=1; i<=n; i++){
