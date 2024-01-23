@@ -1,5 +1,6 @@
 class Solution {
 public:
+// for aa
     bool duplicates(string s){
         set<char> st;
         for(int i=0; i<s.size(); i++){
@@ -11,6 +12,7 @@ public:
         return true;
     }
 
+// valid string
     bool unique(string s, set<char> st){
         for(int i=0; i<s.size(); i++){
             if(st.find(s[i])!=st.end()){
@@ -20,6 +22,7 @@ public:
         }
         return true;
     }
+
     int helper(int ind, vector<string> arr, int &size, set<char> &st){
         if(ind==arr.size()){
             return st.size();
@@ -42,6 +45,8 @@ public:
         return max(taken,notTaken);
 
     }
+
+
     int maxLength(vector<string>& arr) {
         set<char> st;
         int size = 0;
