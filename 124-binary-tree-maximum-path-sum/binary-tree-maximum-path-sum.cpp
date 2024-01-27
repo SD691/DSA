@@ -21,7 +21,7 @@ public:
         return max(left,right)+root->val;
     }
     int maxPathSum(TreeNode* root) {
-        int count = INT_MIN;
+        int count = -1e9;
         dfs(root,count);
         return count;
     }
