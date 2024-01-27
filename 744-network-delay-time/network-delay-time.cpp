@@ -1,34 +1,38 @@
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<pair<int, int>> adj[n+1];
-        for(auto vec: times){
-            adj[vec[0]].push_back({vec[1], vec[2]});
+        vector<pair<int,int>> adj[n+1];
+        for(auto it: times){
+            adj[it[0]].push_back({it[1],it[2]});
         }
-        vector<int> time(n+1, INT_MAX);
-        time[k] = 0;
-        priority_queue< pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        pq.push({0, k});
-        while(!pq.empty()){
-            int currTime = pq.top().first;
-            int node = pq.top().second;
-            pq.pop();
+        queue<pair<int,int>> q;
+        q.push({k,0});
+        vector<int> dis(n+1,1e9);
+        dis[k] = 0;
 
-            if(currTime > time[node]) continue;
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            int node = it.first;
+            int time = it.second;
+            for(auto itr: adj[node]){
 
-            for(auto it: adj[node]){
-                int next = it.first;
-                int timetaken = it.second;
-                if(currTime + timetaken < time[next]){
-                    pq.push({currTime + timetaken, next});
-                    time[next] = currTime + timetaken;
+                int adjNode = itr.first;
+                int adjTime = itr.second;
+
+                if(dis[adjNode]> time+adjTime ){
+                    dis[adjNode] = time+adjTime;
+                    q.push({adjNode,time+adjTime});
                 }
             }
         }
-        int answer = INT_MIN;
-        for(int i = 1; i <= n; i++){
-            answer = max(answer, time[i]);
+        int ans = 0;
+        for(int i=1; i<=n; i++){
+            if(dis[i]==1e9){
+                return -1;
+            }
+            ans = max(ans,dis[i]);
         }
-        return (answer != INT_MAX) ? answer : -1;
+        return ans;
     }
 };
