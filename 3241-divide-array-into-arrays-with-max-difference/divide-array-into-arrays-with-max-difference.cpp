@@ -23,7 +23,7 @@ public:
             }
         }
 
-        // Handle remaining elements
+        
         if (!temp.empty()) {
             ans.push_back(temp);
         }
