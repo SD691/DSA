@@ -5,6 +5,7 @@ class DisjointSet{
     DisjointSet(int n){
         size.resize(n+1,1);
         parent.resize(n+1);
+        //here i can initialise the parent outside the class and have no error, but when it comes to older versions of the class that is not possible, i have to use constructor t initialise the classs
         for(int i=0; i<n; i++){
             parent[i] = i;
         }
@@ -32,15 +33,12 @@ class DisjointSet{
 class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
-        int size = connections.size();
         DisjointSet ds(n);
 
-        int count = 0;
         int extra = 0;
-        for(int i=0; i<connections.size(); i++){
-            int u = connections[i][0];
-            int v = connections[i][1];
-
+        for(auto it: connections){
+            int u = it[0];
+            int v = it[1];
             if(ds.findUPar(u)!=ds.findUPar(v)){
                 ds.unionBySize(u,v);
             }
@@ -49,12 +47,16 @@ public:
             }
         }
 
-        int cntC = 0;
-        for(int i=0; i<n; i++){
-            if(ds.parent[i]==i) cntC++;
+        int connect = 0;
+        for(int i=0; i<ds.parent.size(); i++){
+            if(ds.parent[i]==i){
+                connect++;
+            }
         }
-        int ans = cntC-1;
-        if(extra>=ans) return ans;
+        connect -= 1;
+        if(connect<=extra){
+            return connect;
+        }
         return -1;
 
     }
