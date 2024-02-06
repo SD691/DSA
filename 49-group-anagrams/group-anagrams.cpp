@@ -12,11 +12,8 @@ public:
         vector<vector<string>> ans;
         
         for(auto it: mp){
-            vector<string> anst;
-            for(auto itr: it.second){
-                anst.push_back(itr);
-            }
-            ans.push_back(anst);
+           
+            ans.push_back(it.second);
             
         }
         return ans;
