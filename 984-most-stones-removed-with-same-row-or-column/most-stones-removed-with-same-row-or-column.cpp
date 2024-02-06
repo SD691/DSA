@@ -51,7 +51,7 @@ class DisjointSet{
 class Solution {
 public:
     int removeStones(vector<vector<int>>& stones) {
-        int n = stones.size();
+      int n = stones.size();
         int maxrow = 0;
         int maxcol = 0;
         for(auto it: stones){
