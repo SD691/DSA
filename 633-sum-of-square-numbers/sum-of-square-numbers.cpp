@@ -2,12 +2,12 @@ class Solution {
 public:
 long long  mod = INT_MAX;
     bool judgeSquareSum(int c) {
-        c= c%mod;
-        int n = sqrt(c);
-        int i=0;
-        int j=n;
+        
+        long long n = sqrt(c);
+        long long i=0;
+        long long j=n;
         while(i<=j){
-            long long int val = (i*i)%mod+(j*j)%mod;
+            long long int val = (i*i)+(j*j);
             if(val== c){
                 return true;
             }
