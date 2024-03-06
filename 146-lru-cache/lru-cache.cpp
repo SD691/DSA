@@ -60,15 +60,33 @@ public:
         if (mp.find(key) != mp.end()) {
                 delet(mp[key]);
                 mp.erase(key);
+                Node* newnode = new Node(key, value);
+                add(newnode);
+                mp[key] = newnode;
+            }
+        else if (cap == 0) {
+            Node* node = tail->prev;
+            int keyy = node->key_;
+            delet(node);
+            mp.erase(keyy);
+            Node* newnode = new Node(key, value);
+            add(newnode);
+            mp[key] = newnode;
+        } else if (cap > 0) {
+            if (mp.find(key) != mp.end()) {
+                delet(mp[key]);
+                mp.erase(key);
+                Node* newnode = new Node(key, value);
+                add(newnode);
+                mp[key] = newnode;
+            } else {
+                
+                Node* newnode = new Node(key, value);
+                add(newnode);
+                mp[key] = newnode;
+                cap--;
+            }
         }
-        if(mp.size()==cap){
-            mp.erase(tail->prev->key_);
-            delet(tail->prev);
-        }
-
-        add(new Node(key,value));
-        mp[key] = head->next;
-        
     }
 };
 
