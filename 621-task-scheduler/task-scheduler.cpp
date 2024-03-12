@@ -9,7 +9,7 @@ public:
         for(auto it: tasks){
             mp[it]++;
         }
-        priority_queue<pair<int,char>> pq;
+        priority_queue<pair<int,char>,vector<pair<int,char>>> pq;
         for(auto it: mp){
             pq.push({it.second,it.first});
         }
