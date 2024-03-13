@@ -6,9 +6,7 @@ public:
     int n = nums.size();
     for (int i = 0; i < n; i++) {
         sum += nums[i];
-        if (sum > maxi) {
-            maxi = sum;
-        }
+        maxi = max(sum,maxi);
         if (sum < 0) {
             sum = 0;
         }
