@@ -1,32 +1,33 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
+        if(height.size()<3) return 0;
         int left = 0;
-        int right= height.size()-1;
-        int left_max = 0;
-        int right_max = 0;
-        int water = 0;
-
-        while(left<right){
-            if(height[left]<=height[right]){
-                if(height[left]>left_max){
-                    left_max = height[left];
+        int right=height.size()-1;
+        int leftMax =0;
+        int rightMax =0;
+        int ans = 0;
+        while(left<=right){
+            if(leftMax<=rightMax){
+                if(height[left]>leftMax){
+                    leftMax = height[left];
                 }
                 else{
-                    water = water + left_max-height[left];
+                    ans += leftMax-height[left];
                 }
                 left++;
             }
             else{
-                if(height[right]>right_max){
-                    right_max = height[right];
+                if(height[right]>rightMax){
+                    rightMax = height[right];
                 }
                 else{
-                    water = water + (right_max-height[right]);
+                    ans += rightMax-height[right];
                 }
                 right--;
             }
+
         }
-        return water;
+        return ans;
     }
 };
