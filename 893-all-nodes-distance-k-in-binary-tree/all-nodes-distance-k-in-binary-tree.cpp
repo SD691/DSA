@@ -9,7 +9,7 @@
  */
 class Solution {
 public:
-    void parent(TreeNode* root, unordered_map<TreeNode*,TreeNode*> &parent_U){
+    void par(TreeNode* root, unordered_map<TreeNode*,TreeNode*> &parent){
         queue<TreeNode*> q;
         q.push(root);
 
@@ -17,54 +17,49 @@ public:
             TreeNode* node = q.front();
             q.pop();
 
-            if(node->left){
-                parent_U[node->left] = node;
+            if(node->left!=NULL){
+                parent[node->left] = node;
                 q.push(node->left);
             }
-            if(node->right){
-                parent_U[node->right] = node;
+            if(node->right!=NULL){
+                parent[node->right] = node;
                 q.push(node->right);
             }
-        } 
+        }
+
     }
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        unordered_map<TreeNode*,TreeNode*> parent_U;
-        parent(root,parent_U);
+        unordered_map<TreeNode*,TreeNode*> parent;
+        par(root,parent);
 
         queue<pair<TreeNode*,int>> q;
-        unordered_map<TreeNode*,bool> visited;
         q.push({target,0});
-        int curr_level = 0;
-        visited[target] = true;
-
-        while(!q.empty()){
-            int size = q.size();
-            if(curr_level++==k) break;
-
-            for(int i=0; i<size; i++){
-                TreeNode* node = q.front().first;
-                q.pop();
-
-                if(node->left && !visited[node->left]){
-                    visited[node->left] = true;
-                    q.push({node->left,curr_level});
-                }
-                if(node->right && !visited[node->right]){
-                    visited[node->right] = true;
-                    q.push({node->right,curr_level});
-                }
-                if(parent_U[node] && !visited[parent_U[node]]){
-                    visited[parent_U[node]] = true;
-                    q.push({parent_U[node],curr_level});
-                }
-            }
-        }
+        unordered_map<TreeNode*,int> vis;
         vector<int> ans;
+        vis[target] = 1;
         while(!q.empty()){
-            TreeNode* node = q.front().first;
-            int val = node->val;
-            ans.push_back(val);
+            auto it = q.front();
             q.pop();
+            TreeNode* node = it.first;
+            int val = it.second;
+
+            if(val==k){
+                ans.push_back(node->val);
+            }
+
+            if(node->left && vis.find(node->left)==vis.end()){
+                vis[node->left] = 1;
+                q.push({node->left,val+1});
+            }
+
+            if(node->right && vis.find(node->right)==vis.end()){
+                vis[node->right] = 1;
+                q.push({node->right,val+1});
+            }
+            if(parent[node] && vis.find(parent[node])==vis.end()){
+                vis[parent[node]] = 1;
+                q.push({parent[node],val+1});
+            }
         }
         return ans;
     }
