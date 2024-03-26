@@ -1,39 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        if(intervals.size()==0) return {{newInterval}};
-        vector<vector<int>> vec;
-        vector<int> temp;
-       
-        temp.push_back(newInterval[0]);
-        temp.push_back(newInterval[1]);
-        intervals.push_back(temp);
-        temp.clear();
-        sort(intervals.begin(),intervals.end());
-
-        
-        temp.push_back(intervals[0][0]);
-        temp.push_back(intervals[0][1]);
-        vec.push_back(temp);
-        temp.clear();
-
-
-
-        for(int i=1; i<intervals.size(); i++){
-            int start = intervals[i][0];
-            int end = vec.back()[1];
-
-            if(end>=start){
-                vec.back()[1]= max(vec.back()[1],intervals[i][1]);
-            }
-            else{
-                
-                temp.push_back(intervals[i][0]);
-                temp.push_back(intervals[i][1]);
-                vec.push_back(temp);
-                temp.clear();
-            }
+        if(intervals.size()==0){
+            return {newInterval};
         }
-        return vec;
+
+        intervals.push_back(newInterval);
+        sort(intervals.begin(),intervals.end());
+        vector<vector<int>> ans;
+        ans.push_back({intervals[0][0],intervals[0][1]});
+        
+        for(int i=1; i<intervals.size(); i++){
+            
+           int start = intervals[i][0];
+           int end = ans.back()[1];
+           if(end>=start){
+            ans.back()[1] = max(ans.back()[1],intervals[i][1]);
+           }
+           else{
+            ans.push_back({intervals[i][0],intervals[i][1]});
+           }
+        }
+        return ans;
     }
 };
