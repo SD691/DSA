@@ -1,21 +1,19 @@
 class Solution {
 public:
+/*https://leetcode.com/problems/interleaving-string/solutions/*/
     int maxDepth(string s) {
+        int open = 0;
+        int closed = 0;
         int ans = 0;
-        int max = 0;
-        int count = 0;
         for(int i=0; i<s.size(); i++){
             if(s[i]=='('){
-                count++;
-                if(count>max){
-                    max = count;
-                }
+                open++;
             }
             else if(s[i]==')'){
-                count--;
+                open--;
             }
-            
+            ans = max(ans,open);
         }
-        return max;
+        return ans;
     }
 };
