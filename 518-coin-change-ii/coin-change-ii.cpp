@@ -4,7 +4,7 @@ public:
         if(ind==n){
             return 0;
         }
-        if(amt==amount){
+        if(amt==0){
             return 1;
         }
 
@@ -12,17 +12,17 @@ public:
 
         int notTaken =solve(ind+1,amt,amount, coins,dp,n);
         int taken = 0;
-        if(amt+coins[ind]<=amount){
-            amt += coins[ind];
+        if(coins[ind]<=amt){
+            amt -= coins[ind];
             taken = solve(ind,amt,amount,coins,dp,n);
-            amt -= coins[ind]; 
+            amt += coins[ind]; 
         }
 
         return dp[ind][amt] = taken+notTaken;
     }
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount,-1));
-        return solve(0,0,amount,coins,dp,n);
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        return solve(0,amount,amount,coins,dp,n);
     }
 };
