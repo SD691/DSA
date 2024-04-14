@@ -10,20 +10,56 @@
  */
 class Solution {
 public:
-    ListNode* sortList(ListNode* head) {
-        vector<int> temp;
-        while(head){
-            temp.push_back(head->val);
-            head = head->next;
+    ListNode* middle(ListNode* head){
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+
+        while(slow!=NULL && fast!=NULL && fast->next!=NULL){
+            fast = fast->next->next;
+            slow = slow->next;
         }
-        sort(temp.begin(),temp.end());
+        return slow;
+    }
+
+    ListNode* merge(ListNode* left, ListNode* right){
         ListNode* dummy = new ListNode(-1);
-        ListNode* tempp = dummy;
-        for(int i=0; i<temp.size(); i++){
-            ListNode* node = new ListNode(temp[i]);
-            dummy->next = node;
-            dummy = dummy->next;
+        ListNode* temp = dummy;
+        while(left!=NULL && right!=NULL){
+            if(left->val<right->val){
+                temp->next = left;
+                temp=temp->next;
+                left=left->next;
+            }
+            else{
+                temp->next = right;
+                temp=temp->next;
+                right = right->next;
+            }
         }
-        return tempp->next;
+
+        while(left){
+            temp->next = left;
+            temp=temp->next;
+            left=left->next;
+        }
+        while(right){
+            temp->next = right;
+            temp=temp->next;
+            right = right->next;
+        }
+        return dummy->next;
+    }
+    ListNode* mergeSort(ListNode* temp){
+        if(temp==NULL || temp->next==NULL) return temp;
+        ListNode* mid = middle(temp);
+        ListNode* r = mid->next;
+        mid->next = NULL;
+        ListNode* left = mergeSort(temp);
+        ListNode* right = mergeSort(r);
+
+        return merge(left,right);
+    }
+    ListNode* sortList(ListNode* head) {
+        return mergeSort(head);
     }
 };
