@@ -1,15 +1,17 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int ans =   INT_MIN; int pre = 1; int suff= 1;
+        int ans = INT_MIN;
+        int pref = 0;
+        int suf = 0;
         int n = nums.size();
-        for(int i=0; i<nums.size(); i++){
-            if(pre==0) pre=1;
-            if(suff==0) suff= 1;
+        for(int i=0; i<n; i++){
+            if(pref==0) pref = 1;
+            if(suf==0) suf = 1;
 
-            pre = pre*nums[i];
-            suff = suff*nums[n-i-1];
-            ans = max(ans,max(pre,suff));
+            pref *= nums[i];
+            suf *= nums[n-i-1];
+            ans = max(ans,max(pref,suf));
         }
         return ans;
     }
