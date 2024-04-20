@@ -1,26 +1,29 @@
 class Solution {
 public:
-    bool helper(int ind, string s, unordered_map<string,int> &mp, vector<int> &dp){
-        if(ind==s.size()) return true;
-        if(dp[ind]!=-1) return dp[ind];
-        string a = "";
-        for(int i=ind; i<s.size(); i++){
-            a = a+s[i];
-            if(mp[a]){
-                if(helper(i+1,s,mp,dp)){
-                    return dp[i] = true;
-                }
-            }
+    bool find(int ind, string s, unordered_map<string,int> &mp, vector<int> &dp){
+        if(ind==s.size()){
+            return true;
         }
-        return dp[ind] = false;
+
+        if(dp[ind]!=-1) return dp[ind];
+        string temp;
+        for(int i=ind; i<s.size(); i++){
+            temp += s[i];
+            if(mp.find(temp)!=mp.end()){
+                if(find(i+1,s,mp,dp)==true){
+                    return dp[ind]= true;
+                }
+            } 
+        }
+        return dp[ind]=false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
         unordered_map<string,int> mp;
-
-        for(auto it: wordDict){
-            mp[it]++;
+        vector<int> dp(s.size()+1,-1);
+        for(int i=0; i<wordDict.size(); i++){
+            mp[wordDict[i]]++;
         }
-        vector<int> dp(s.size(),-1);
-        return helper(0,s,mp,dp);
+
+        return find(0,s,mp,dp);
     }
 };
