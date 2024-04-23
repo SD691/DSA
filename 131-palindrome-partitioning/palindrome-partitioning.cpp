@@ -1,35 +1,36 @@
 class Solution {
 public:
-    bool isPalindrome(const string& s, int start, int end) {
-        while (start < end) {
-            if (s[start] != s[end])
+    bool palin(string temp){
+        int n = temp.size();
+        for(int i=0; i<temp.size()/2; i++){
+            if(temp[i]!=temp[n-i-1]){
                 return false;
-            start++;
-            end--;
+            }
         }
         return true;
     }
-
-    void helper(int idx, string& s, vector<string>& temp, vector<vector<string>>& ans) {
-        if (idx == s.size()) {
+    void solve(int ind, string s, vector<vector<string>> &ans, vector<string> &temp){
+        if(ind==s.size()){
             ans.push_back(temp);
             return;
         }
 
-        for (int i = idx; i < s.size(); i++) {
-            if (isPalindrome(s, idx, i)) {
-                temp.push_back(s.substr(idx, i - idx + 1));
-                helper(i + 1, s, temp, ans);
-                temp.pop_back(); // Backtrack and remove the last element from temp
+        for(int i=ind; i<s.size(); i++){
+            string temp_string;
+            for(int j=ind; j<=i; j++){
+                temp_string.push_back(s[j]);
+            }
+            if(palin(temp_string)){
+                temp.push_back(temp_string);
+                solve(i+1,s,ans,temp);
+                temp.pop_back();
             }
         }
     }
-
     vector<vector<string>> partition(string s) {
         vector<vector<string>> ans;
         vector<string> temp;
-
-        helper(0, s, temp, ans);
+        solve(0,s,ans,temp);
         return ans;
     }
 };
