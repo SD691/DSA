@@ -11,25 +11,22 @@
  */
 class Solution {
 public:
-    int kthSmallest(TreeNode* root, int k) {
-        vector<int> no;
-        queue<TreeNode*> q;
-        q.push(root);
-        
-        while(!q.empty()){
-            TreeNode* node = q.front();
-            q.pop();
-            no.push_back(node->val);
-
-            if(node->left){
-                q.push(node->left);
-            }
-            if(node->right){
-                q.push(node->right);
-            }
+    void inorder(TreeNode* root, vector<int> &order){
+        if(root==NULL){
+            return;
         }
 
-        sort(no.begin(),no.end());
-        return no[k-1];
+        inorder(root->left,order);
+        order.push_back(root->val);
+        inorder(root->right,order);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> order;
+        inorder(root,order);
+
+        if(k>order.size()){
+            return -1;
+        }
+        return order[k-1];
     }
 };
