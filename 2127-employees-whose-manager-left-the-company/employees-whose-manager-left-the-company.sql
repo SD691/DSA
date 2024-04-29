@@ -1,3 +1,4 @@
 # Write your MySQL query statement below
-SELECT DISTINCT E2.EMPLOYEE_ID FROM EMPLOYEES E1,EMPLOYEES E2 WHERE E2.SALARY<30000 AND
-E2.MANAGER_ID NOT IN(SELECT EMPLOYEE_ID FROM EMPLOYEES) ORDER BY EMPLOYEE_ID;
+select employee_id from employees
+where salary<30000 and manager_id not in (select employee_id from employees)
+order by employee_id
