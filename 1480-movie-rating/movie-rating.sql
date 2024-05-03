@@ -19,3 +19,10 @@ union all
     order by avg(rating) DESC,title
     limit 1
 ) 
+
+#union vs union all
+#A = 1,2
+#B = 1,3
+
+#A union B = 1,2,3
+#A union All B = 1,1,2,3
