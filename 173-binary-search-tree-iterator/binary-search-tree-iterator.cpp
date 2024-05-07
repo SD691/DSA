@@ -11,7 +11,7 @@
  */
 class BSTIterator {
 public:
-     vector<int> vec;
+    
     void inorder(vector<int> &vec, TreeNode* root){
         if(root==NULL){
             return;
@@ -21,6 +21,7 @@ public:
         vec.push_back(root->val);
         inorder(vec,root->right);
     }
+     vector<int> vec;
     int i=0;
     BSTIterator(TreeNode* root) {
         inorder(vec,root);
