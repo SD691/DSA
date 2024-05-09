@@ -15,13 +15,7 @@ public:
                 helper(i+1,sum-candidates[i],n,temp,ans,candidates);
                 temp.pop_back();
             }
-           
-        
-
-        
-       
-           
-        
+  
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         int n = candidates.size();
