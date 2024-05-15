@@ -1,23 +1,27 @@
 class Solution {
 public:
+    static bool comp(vector<int> &a, vector<int> &b){
+        return a[0]<b[0];
+    }
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-       vector<int> p;
-       vector<int> p1;
+        sort(intervals.begin(),intervals.end(),comp);
+
+        int first = intervals[0][0];
+        int last = intervals[0][1];
+        int n = intervals.size();
         vector<vector<int>> ans;
-        sort(intervals.begin(),intervals.end());
-        p = intervals[0];
         for(int i=1; i<intervals.size(); i++){
-            p1= intervals[i];
-            if(p[1]>=p1[0]){
-                p[1] = max(p[1],p1[1]);
+            if(last>=intervals[i][0]){
+                first = min(first,intervals[i][0]);
+                last = max(last,intervals[i][1]);
             }
             else{
-                ans.push_back(p);
-                p = intervals[i];
-               
+                ans.push_back({first,last});
+                first= intervals[i][0];
+                last = intervals[i][1];
             }
         }
-        ans.push_back(p);
+        ans.push_back({first,last});
         return ans;
     }
 };
