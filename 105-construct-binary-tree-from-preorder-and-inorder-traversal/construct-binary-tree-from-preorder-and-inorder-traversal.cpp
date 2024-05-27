@@ -11,28 +11,32 @@
  */
 class Solution {
 public:
-    TreeNode* build(vector<int> &preorder, int prestart, int preend, vector<int> &inorder, int instart, int inend, map<int,int> &mp){
-        if(prestart>preend || instart>inend) return NULL;
-        TreeNode* root = new TreeNode(preorder[prestart]);
 
-        int ele = mp[root->val];
-        int nele = ele-instart;
+    TreeNode* solve(int pre_st, int pre_en, vector<int> &preorder,int in_st, int in_en, vector<int> &inorder, unordered_map<int,int> &mp){
+        if(pre_st>pre_en || in_st>in_en){
+            return NULL;
+        }
+        TreeNode* root = new TreeNode(preorder[pre_st]);
 
-        root->left = build(preorder,prestart+1,prestart+nele,inorder,instart,ele-1,mp);
-        root->right = build(preorder,prestart+nele+1,preend,inorder,ele+1,inend,mp);
+        int nele = mp[preorder[pre_st]];
+        int n_left = nele-in_st;
+
+        root->left = solve(pre_st+1,pre_st+n_left,preorder,in_st,nele-1,inorder,mp);
+        root->right = solve(pre_st+n_left+1,pre_en,preorder,nele+1,in_en,inorder,mp);
         return root;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int prestart = 0;
-        int preend = preorder.size()-1;
-        int instart = 0;
-        int inend = inorder.size()-1;
+        int pre_st,pre_end,in_st,in_end;
+        pre_st = 0;
+        pre_end = preorder.size()-1;
+        in_st = 0;
+        in_end = inorder.size()-1;
 
-        map<int,int> mp;
+        unordered_map<int,int> mp;
         for(int i=0; i<inorder.size(); i++){
             mp[inorder[i]] = i;
         }
 
-        return build(preorder,prestart,preend,inorder,instart,inend,mp);
+        return solve(pre_st,pre_end,preorder,in_st,in_end,inorder,mp);
     }
 };
