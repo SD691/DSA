@@ -2,10 +2,8 @@ class Solution {
 public:
     int minInsertions(string s) {
         int n = s.size();
-        string o = s;
-        reverse(s.begin(),s.end());
         string t = s;
-        s = o;
+        reverse(t.begin(),t.end());
 
         vector<vector<int>> dp(n+1,vector<int>(n+1,0));
         int ans = 0;
