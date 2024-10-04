@@ -14,7 +14,7 @@ public:
         if(sum%n!=0){
             return -1;
         }
-        sort(skills.begin(),skills.end());
+        //sort(skills.begin(),skills.end());
         
         sum = sum/n;
         
