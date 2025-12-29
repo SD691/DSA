@@ -4,24 +4,24 @@
  * @return {Array}
  */
 var chunk = function(arr, size) {
-    let matrix = [];
-    let val = 0;
-    let curr = 0;
-    let n = arr.length;
-    let a=[];
-    for(const v in arr){
-        if(val==size){
-            val=0;
-            matrix.push(a);
-            a=[];
+    
+    let ans = [];
+    let count=0;
+    let temp = [];
+    for(let i=0; i<arr.length; i++){
+        if(count==size){
+            count=0;
+            ans.push(temp);
+            temp = [];
         }
-        if(val<size){
-            a.push(arr[v]);
-            val=val+1;
+        if(count<size){
+            count++;
+            temp.push(arr[i]);
         }
     }
-    if(a.length>0){
-        matrix.push(a);
+
+    if(temp.length){
+        ans.push(temp);
     }
-    return matrix;
+    return ans;
 };
