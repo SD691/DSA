@@ -6,14 +6,14 @@
 var addTwoPromises = async function(promise1, promise2) {
     // const p1 = promise1;
     // const p2 = promise2;
-    const [result1, result2] = await Promise.all([promise1,promise2]);
-    return result1+result2;
-    // let sum = 0;
-    // var addTwo = async function func(promise1, promise2){
-    //     const [result1, result2] = await Promise.all([promise1,promise2]);
-    //     sum = result1+result2;
-    // }
-    // return sum;
+    // const [result1, result2] = await Promise.all([promise1,promise2]);
+    // return result1+result2;
+    let sum = 0;
+    var addTwo = async function func(promise1, promise2){
+        const [result1, result2] = await Promise.all([promise1,promise2]);
+        return result1+result2;
+    }
+    return sum = await addTwo(promise1,promise2);
     // Promise.all(
     //     [
     //         promise1,
