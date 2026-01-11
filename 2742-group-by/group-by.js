@@ -3,19 +3,18 @@
  * @return {Object}
  */
 Array.prototype.groupBy = function(fn) {
-    let result = {};
+    let ans = new Map();
 
     for(let i=0; i<this.length; i++){
-        let item = this[i];
-        let key = fn(item);
+        let obj = this[i];
+        let key = fn(obj);
 
-        if(result[key]===undefined){
-            result[key] = [];
+        if(ans[key]===undefined){
+            ans[key]=[];
         }
-
-        result[key].push(item);
+        ans[key].push(obj);
     }
-    return result;
+    return ans;
 };
 
 /**
