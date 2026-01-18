@@ -3,16 +3,15 @@
  * @return {Function}
  */
 var once = function(fn) {
-    let result = [{"calls":1,"value":0}];
-    let count=true;
+    let count= 0;
     return function(...args){
-        if(count){
-            count = false;
-            return fn(...args);
-            
+        if(count===0){
+            count=count+1;
+            console.log(args);
+            return fn(...args);   
         }
+
     }
-    
 };
 
 /**
