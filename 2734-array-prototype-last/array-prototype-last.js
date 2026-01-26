@@ -4,7 +4,7 @@
 Array.prototype.last = function() {
     let n = this.length;
     if(n>0){
-        return this[this.length-1];
+        return this[n-1];
     }
     return -1;
 };
